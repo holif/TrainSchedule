@@ -5,7 +5,7 @@
     <title>列车时刻表查询</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/jquery.mobile-1.4.3.css"/>
-	<script type="text/javascript" charset="utf-8" src="js/cordova.js"></script>  
+
 </head>
 
 <body>
@@ -129,10 +129,10 @@
 <script src="js/jquery-1.11.1.js"></script>
 <script src="js/jquery.mobile-1.4.3.js"></script>
 <script>
-    var urlPre = "http://www.corsproxy.com/"; //跨域中转
-    var url1 = "www.webxml.com.cn/WebServices/TrainTimeWebService.asmx/getStationAndTimeByStationName?UserID=";
-    var url2 = "www.webxml.com.cn/WebServices/TrainTimeWebService.asmx/getStationAndTimeDataSetByLikeTrainCode?UserID=";
-    var url3 = "www.webxml.com.cn/WebServices/TrainTimeWebService.asmx/getDetailInfoByTrainCode?UserID=";
+
+    var url1 = "http://wp.baal.xyz:8080/train/getStationByName.php";
+    var url2 = "http://wp.baal.xyz:8080/train/getInfoByLikeTrainCode.php";
+    var url3 = "http://wp.baal.xyz:8080/train/getDetailInfoByTrainCode.php";
     var isbind = 0;
 
     //获取车次列表
@@ -156,7 +156,7 @@
                 _url = url2;
             }
 
-            $.get(urlPre + _url, _data,
+            $.get(_url, _data,
                     function (data) {
                         $("#list").html("");
                         var list = $("#list");
@@ -164,8 +164,6 @@
 
                         var _arr = [];
                         timeTables.each(function (index, obj) {
-                            var i = index;
-                            if (i > 10) return false; //只载入前10条
 
                             var that = $(this);
                             if (that.find("FirstStation").text() == "数据没有被发现") {
@@ -209,7 +207,7 @@
         if(isAjax) return;
         isAjax=true
 
-        $.get(urlPre + url3,
+        $.get(url3,
                 {
                     TrainCode: trainCode
                 },
